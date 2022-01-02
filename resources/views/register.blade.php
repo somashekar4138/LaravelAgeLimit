@@ -5,7 +5,8 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <title>Anveshana Registration</title>
 <style>
         /* ==========================================================================
@@ -665,6 +666,7 @@
     color: #525252;
     font-weight: 400;
     margin-bottom: 40px;
+    text-align: center;
   }
   
   /* ==========================================================================
@@ -675,6 +677,7 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
     background: #fff;
+    
   }
   
   .card-4 {
@@ -685,17 +688,22 @@
     -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    
   }
   
   .card-4 .card-body {
     padding: 57px 65px;
     padding-bottom: 65px;
+  
   }
   
   @media (max-width: 767px) {
     .card-4 .card-body {
       padding: 50px 40px;
     }
+  }
+  .cop{
+   
   }
   
         </style>
@@ -707,42 +715,74 @@
   <div class="wrapper wrapper--w680">
     <div class="card card-4">
       <div class="card-body">
-        <h2 class="title">Registration Form</h2>
+      <h2 class="title">Registration Form</h2>
         <form method="POST" action="/register">
+       
+     <?php 
+ $something = $errors->all(); 
+ if(!empty($something)): 
+?>
+
+  <div class="alert alert-danger alert-dismissible fade show">
+       <strong>Errors:</strong><br>           
+  @foreach ($errors->all(':message') as $input_error)
+    {{ $input_error }}<br>
+  @endforeach 
+  </div>
+
+<?php endif; ?>
+<?php 
+$a=session('status');
+if(!empty($a)):
+?>
+ <div class="alert alert-success alert-dismissible fade show">
+    
+       <strong>Success!</strong><br>           
+       {{session('status')}}<br>
+  </div>
+  <?php 
+  header("Refresh:1; url=login");
+  ?>
+
+<?php endif; ?>
+
             @csrf
+          
           <div class="col col-space">
-            <div class="col-8">
+            
+            <div class="col-14">
               <div class="input-group">
-                <label class="label">Full Name</label>
-                <input class="input--style-4" type="text" name="name" placeholder="Full Name">
-                <p>@error('name') {{$message}}@enderror</p>
+                <label class="label">First Name</label>
+                <input class="input--style-4" type="text" name="fname" placeholder="Enter Your First Name">
+                
               </div>
             </div>
 
-            <div class="col-8">
+            <div class="col-14">
               <div class="input-group">
-                <label class="label">Age</label>
-                <input class="input--style-4" type="text" name="age" placeholder="Enter Your Age"> 
-                <p>@error('age') {{$message}}@enderror</p>
+                <label class="label">Last Name</label>
+                <input class="input--style-4" type="text" name="lname" placeholder="Enter Your Last Name"> 
+                
               </div>
             </div>
     
-            <div class="col-8">
+            <div class="col-14">
               <div class="input-group">
                 <label class="label">Email</label>
                 <input class="input--style-4" type="email" name="email" placeholder="Email">
-                <p>@error('email') {{$message}}@enderror</p>
+               
               </div>
             </div>
-            <div class="col-8">
+            <div class="col-14">
               <div class="input-group">
                 <label class="label">Password</label>
                 <input class="input--style-4" type="password" name="password" placeholder="Enter your password">
-                <p>@error('password') {{$message}}@enderror</p>
+              
 
               </div>
             </div>
           </div>
+         
 
           <div class="p-t-15">
           <input class="btn btn--radius-2 btn--blue" type="submit" value="Register">

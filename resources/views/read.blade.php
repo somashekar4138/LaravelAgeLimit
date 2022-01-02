@@ -60,37 +60,17 @@
     </div>
     </div><br>
 <main class="container">
+<div style="text-align:center; height: 100%">
+@foreach($users as $user)
+<h2>{{$user->Title}}</h2>
+<h7>{{$user->Description}}</h7><br>
+<h7>{{$user->Category}}</h7><br>
+<h7>{{$user->Author}}</h7><br>
 
 
-  <div class="col mb-2">
 
-
-  @foreach ($users as $user)
-  <?php
-  $a=$user->Status;
-  if($a == "Publish"){
-
-  ?>
-    <div class="col-md-15">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">{{$user->Category}}</strong>
-          <h3 class="mb-0">{{$user->Title}}</h3>
-          <div class="mb-1 text-muted">{{$user->created_at}}</div>
-          <p class="card-text mb-auto">{{$user->Description
-              }}</p>
-          <a href="/read/{{$user->Id}}" class="stretched-link">Continue reading</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-    @endforeach
-   
-  </div>
-
+@endforeach
+</div>
 </main>
 <div style="display:flex; justify-content:center;">
 <footer class="blog-footer">

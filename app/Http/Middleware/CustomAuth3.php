@@ -16,9 +16,8 @@ class CustomAuth3
      */
     public function handle(Request $request, Closure $next)
     {
-        $a=session('age');
-        if($a >17 && $a < 25){
-            return view('main');
+        if(!session()->has('fname') && !session()->has('lname')){
+            return redirect('login');
         }
         return $next($request);
     }

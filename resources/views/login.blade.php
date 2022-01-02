@@ -5,7 +5,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+   
     <title>Anveshana Registration</title>
 <style>
         /* ==========================================================================
@@ -709,21 +711,53 @@
       <div class="card-body">
         <h2 class="title">Login Form</h2>
         <form method="POST" action="/login">
+             
+     <?php 
+ $something = $errors->all(); 
+ if(!empty($something)): 
+?>
+
+  <div class="alert alert-danger alert-dismissible fade show">
+       <strong>Errors:</strong><br>           
+  @foreach ($errors->all(':message') as $input_error)
+    {{ $input_error }}<br>
+  @endforeach 
+  </div>
+
+<?php endif; ?>
+<?php 
+$a=session('status');
+if(!empty($a)):
+?>
+ <div class="alert alert-success alert-dismissible fade show">
+    
+       <strong>Success!</strong><br>           
+       {{session('status')}}<br>
+  </div>
+
+<?php endif; ?>
+<?php 
+$a=session('err');
+if(!empty($a)):
+?>
+   <div class="alert alert-danger alert-dismissible fade show">
+    
+       <strong>Error!</strong><br>           
+       {{session('err')}}<br>
+  </div>
+<?php endif; ?>
             @csrf
           <div class="col col-space">
-            <div class="col-8">
+            <div class="col-14">
               <div class="input-group">
                 <label class="label">Email</label>
                 <input class="input--style-4" type="email" name="email">
-                <p>@error('email') {{$message}}@enderror</p>
               </div>
             </div>
-            <div class="col-8">
+            <div class="col-14">
               <div class="input-group">
                 <label class="label">Password</label>
                 <input class="input--style-4" type="password" name="password">
-                <p>@error('password') {{$message}}@enderror</p>
-
               </div>
             </div>
           </div>
@@ -732,7 +766,6 @@
           <input class="btn btn--radius-2 btn--blue" type="submit" value="Register">
             
           </div>
-          <h5>{{session('status')}}</h5>
 <br>
           <label  class="label">Not Yet Registered?</label><label  class="label"><a href="/register">Click here</a> To Register</label>
         </form>

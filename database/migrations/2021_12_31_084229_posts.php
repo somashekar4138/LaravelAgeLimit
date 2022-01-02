@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Register extends Migration
+class Posts extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,13 @@ class Register extends Migration
     public function up()
     {
         //
-        Schema::create('Registers',function(Blueprint $table){
+        Schema::create('Posts',function(Blueprint $table){
             $table->bigIncrements('Id');
-            $table->string('fname');
-            $table->string('lname');
-            $table->string('Is_Admin')->default('0');
-            $table->string('Is_Blocked')->default('0');
-            $table->string('Email')->unique();
-            $table->string('Password');
+            $table->string('Title');
+            $table->string('Description');
+            $table->string('Category');
+            $table->string('Status')->default('no');
+            $table->string('Author');
             $table->timestamps();
        });
     }
@@ -34,6 +33,6 @@ class Register extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('registers');
+        Schema::dropIfExists('Posts');
     }
 }

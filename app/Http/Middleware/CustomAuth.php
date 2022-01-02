@@ -16,7 +16,7 @@ class CustomAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('user') && !session()->has('age')){
+        if(!session()->has('fname') && !session()->has('lname')){
             return redirect('login');
         }
         return $next($request);

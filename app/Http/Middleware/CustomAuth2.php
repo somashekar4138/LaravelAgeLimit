@@ -16,7 +16,8 @@ class CustomAuth2
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('user')){
+        
+        if(session()->has('fname') && session()->has('lname')){
             return redirect('main');
 
         }

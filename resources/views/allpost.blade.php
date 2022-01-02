@@ -453,7 +453,16 @@ h1, .h1 {
         left: 0;
     }
 }
-
+.t-table {
+  border: 1px solid black;
+  height: 50px;
+  border-collapse: collapse;
+  margin: 2rem
+}
+td {
+  border: 1px solid black;
+  
+}
       </style>
     <title>Dashboard</title>
 </head>
@@ -466,10 +475,10 @@ h1, .h1 {
         </header>
         <nav class="dashboard-nav-list">
           <a href="/main" class="dashboard-nav-item"><i class="fas fa-home"></i>Home</a>
-          <a href="/main" class="dashboard-nav-item active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+          <a href="/main" class="dashboard-nav-item"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
           <a href="/editprofile" class="dashboard-nav-item"><i class="fas fa-tachometer-alt"></i>Edit Profile</a>
           <a href="/addpost" class="dashboard-nav-item"><i class="fas fa-file-upload"></i>Add Post</a>
-            <a href="/allpost" class="dashboard-nav-item"><i class="fas fa-cogs"></i> All Posts </a>
+            <a href="/allpost" class="dashboard-nav-item active"><i class="fas fa-cogs"></i> All Posts </a>
             <a href="/deletedpost" class="dashboard-nav-item"><i class="fas fa-user"></i>Deleted Posts</a>
           <div class="nav-item-divider"></div>
           <a href="/logout" class="dashboard-nav-item"><i class="fas fa-sign-out-alt"></i> Logout </a>
@@ -481,151 +490,153 @@ h1, .h1 {
             <div class='container'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h1>Welcome, {{session('fname')}} {{session('lname')}}</h1>
+                    <h1>All Your Posts</h1>
                     </div>
-                    
-                    
-                    
-                    
                     <br>
-                    <center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Total Post</h1></center>
-    </header>
+                    <div style="display:flex; justify-content:center;">
+                    <h2>Pending Review</h2>
+                </div>
+                    <?php 
+$a=session('status');
+if(!empty($a)):
+?><div style="display:flex; justify-content:center;">
+ <div class="alert alert-success alert-dismissible fade show">
+    
+       <strong>Success!</strong>           
+       {{session('status')}}<br>
+  </div>
+</div>
 
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
+<?php endif; ?>
 
-echo "<center>$cont</center>";
-?></h1>
-    </div>
-
-                    </div></center><br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Review Completed</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Publish"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
+<table  class="t-table">
+  <thead>
+    <tr>
+      <td><b>ID</b></td>
+      <td><b>Title</b></td>
+      <td><b>Description</b></td>
+      <td><b>Category</b></td>
+      <td><b>Status</b></td>
+      <td><b>Edit</b></td>
+      <td><b>Delete</b></td>
+    </tr>
+  </thead>
+  <tbody>
+  <?php 
+  $count= 0;
+  ?>
+                    @foreach ($users as $user)
                     
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Review Pending</h1></center>
-    </header>
+                    <?php 
+                    $a=$user->Status;
+                    if($a == "no"){
+                        $count++;
+                    ?>
+    <tr style="height: 100px">
+      <td><?php echo $count; ?></td>
+      <td><input style="width: 3cm;" type="text" value="{{$user->Title}}" disabled></td>
+      <td><input style="width: 21cm;" type="text" value="{{$user->Description}}" disabled></td>
+      <td>{{$user->Category}}</td>
+      <td>{{$user->Status}}</td>
+      <td><a href="/edit/{{$user->Id}}">Edit</a></td>
+      <td><a href="/sdelete/{{$user->Id}}">Delete</a></td>
 
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "no"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
+      </tr>
+      <?php } ?>
+                    @endforeach
+               
+    </tbody>
+  </table>
 
-                    </div></center>
+<br>
+<div style="display:flex; justify-content:center;">
+                    <h2>Published</h2>
+                </div>
+
+  <table  class="t-table">
+  <thead>
+    <tr>
+      <td><b>ID</b></td>
+      <td><b>Title</b></td>
+      <td><b>Description</b></td>
+      <td><b>Category</b></td>
+      <td><b>Status</b></td>
+      <td><b>Edit</b></td>
+      <td><b>Delete</b></td>
+    </tr>
+  </thead>
+  <tbody>
+  <?php 
+  $count= 0;
+  ?>
+                    @foreach ($users as $user)
                     
+                    <?php 
+                    $a=$user->Status;
+                    if($a == "Publish"){
+                        $count++;
+                    ?>
+    <tr style="height: 100px">
+      <td><?php echo $count; ?></td>
+      <td><input style="width: 3cm;" type="text" value="{{$user->Title}}" disabled></td>
+      <td><input style="width: 21cm;" type="text" value="{{$user->Description}}" disabled></td>
+      <td>{{$user->Category}}</td>
+      <td>{{$user->Status}}</td>
+      <td><a href="/edit/{{$user->Id}}">Edit</a></td>
+      <td><a href="/sdelete/{{$user->Id}}">Delete</a></td>
+
+      </tr>
+      <?php } ?>
+                    @endforeach
+               
+    </tbody>
+  </table>
+
+
+
+  <br>
+<div style="display:flex; justify-content:center;">
+                    <h2>Rejected</h2>
+                </div>
+
+  <table  class="t-table">
+  <thead>
+    <tr>
+      <td><b>ID</b></td>
+      <td><b>Title</b></td>
+      <td><b>Description</b></td>
+      <td><b>Category</b></td>
+      <td><b>Status</b></td>
+      <td><b>Edit</b></td>
+      <td><b>Delete</b></td>
+    </tr>
+  </thead>
+  <tbody>
+  <?php 
+  $count= 0;
+  ?>
+                    @foreach ($users as $user)
                     
-                    
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Archives</h1></center>
-    </header>
+                    <?php 
+                    $a=$user->Status;
+                    if($a == "Reject"){
+                        $count++;
+                    ?>
+    <tr style="height: 100px">
+      <td><?php echo $count; ?></td>
+      <td><input style="width: 3cm;" type="text" value="{{$user->Title}}" disabled></td>
+      <td><input style="width: 21cm;" type="text" value="{{$user->Description}}" disabled></td>
+      <td>{{$user->Category}}</td>
+      <td>{{$user->Status}}</td>
+      <td><a href="/edit/{{$user->Id}}">Edit</a></td>
+      <td><a href="/sdelete/{{$user->Id}}">Delete</a></td>
 
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Soft Deleted"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    
-                    
-                    
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Rejected</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Reject"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Your Acc Status</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($my, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$admin=$js[0]['Is_Admin'];
-if($admin == "0"){
-    echo "You Are Not Admin";
-}else{
-    echo "You Are Admin";
-}
-?></h1>
-    </div>
-
-                    </div></center>
-
-
-                    
+      </tr>
+      <?php } ?>
+                    @endforeach
+               
+    </tbody>
+  </table>
                     <div class='card-body'>
                 </div>
             </div>

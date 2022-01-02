@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -104,7 +103,7 @@ h1, .h1 {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1.25rem;
-    display: flex;
+    display:flex;
     justify-content:center;
 }
 
@@ -194,7 +193,7 @@ h1, .h1 {
 }
 
 .dashboard-nav {
-  background: -webkit-gradient(
+    background: -webkit-gradient(
       linear,
       left bottom,
       right top,
@@ -453,6 +452,44 @@ h1, .h1 {
         left: 0;
     }
 }
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.tool-list {
+  display: inline-block;
+  flex-flow: row nowrap;
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
+  margin-top: 1.6cm;
+  overflow: hidden;
+  border-raduis: 10px;
+}
+
+.tool--btn {
+  display: block;
+  border: none;
+  padding: 0.5rem;
+  font-size: 20px;
+}
+
+#output {
+  height: 400px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  margin: 1rem;
+  padding: 1rem;
+}
+.aaa{
+    width: 100%;
+}
+.inp{
+    margin-left: 0.45cm;
+    width: 100%;
+    height: 1cm;
+}
 
       </style>
     <title>Dashboard</title>
@@ -466,9 +503,9 @@ h1, .h1 {
         </header>
         <nav class="dashboard-nav-list">
           <a href="/main" class="dashboard-nav-item"><i class="fas fa-home"></i>Home</a>
-          <a href="/main" class="dashboard-nav-item active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+          <a href="/main" class="dashboard-nav-item"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
           <a href="/editprofile" class="dashboard-nav-item"><i class="fas fa-tachometer-alt"></i>Edit Profile</a>
-          <a href="/addpost" class="dashboard-nav-item"><i class="fas fa-file-upload"></i>Add Post</a>
+          <a href="/addpost" class="dashboard-nav-item  active"><i class="fas fa-file-upload"></i>Add Post</a>
             <a href="/allpost" class="dashboard-nav-item"><i class="fas fa-cogs"></i> All Posts </a>
             <a href="/deletedpost" class="dashboard-nav-item"><i class="fas fa-user"></i>Deleted Posts</a>
           <div class="nav-item-divider"></div>
@@ -481,157 +518,127 @@ h1, .h1 {
             <div class='container'>
                 <div class='card'>
                     <div class='card-header'>
-                        <h1>Welcome, {{session('fname')}} {{session('lname')}}</h1>
+                        <h1>Add Post</h1>
                     </div>
-                    
-                    
-                    
-                    
-                    <br>
-                    <center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Total Post</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-
-echo "<center>$cont</center>";
-?></h1>
-    </div>
-
-                    </div></center><br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Review Completed</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Publish"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Review Pending</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "no"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    
-                    
-                    
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Archives</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Soft Deleted"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    
-                    
-                    
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Rejected</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($users, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$cont=count($js);
-$count=0;
-for($i=0;$i<$cont;$i++){
-    $Status=$js[$i]['Status'];
-    if($Status == "Reject"){
-        $count++;
-    }
-}
-echo $count;
-?></h1>
-    </div>
-
-                    </div></center>
-                    <br><center> 
-                    <div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-pink">
-      <center><h1>Your Acc Status</h1></center>
-    </header>
-
-    <div class="w3-container">
-      <h1><?php 
-$json=json_encode($my, JSON_FORCE_OBJECT);;
-$js=json_decode($json,1);
-$admin=$js[0]['Is_Admin'];
-if($admin == "0"){
-    echo "You Are Not Admin";
-}else{
-    echo "You Are Admin";
-}
-?></h1>
-    </div>
-
-                    </div></center>
-
-
-                    
+ 
                     <div class='card-body'>
+                    <div class="toolbar">
+	<ul class="tool-list">
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command='justifyLeft'
+				class="tool--btn">
+				<i class=' fas fa-align-left'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command='justifyCenter' 
+				class="tool--btn">
+				<i class=' fas fa-align-center'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="bold" 
+				class="tool--btn">
+				<i class=' fas fa-bold'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="italic"
+				class="tool--btn">
+				<i class=' fas fa-italic'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="underline"
+				class="tool--btn">
+				<i class=' fas fa-underline'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="insertOrderedList"
+				class="tool--btn">
+				<i class=' fas fa-list-ol'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="insertUnorderedList"
+				class="tool--btn">
+				<i class=' fas fa-list-ul'></i>
+			</button>
+		</li>
+		<li class="tool">
+			<button 
+				type="button" 
+				data-command="createlink" 
+				class="tool--btn">
+				<i class=' fas fa-link'></i>
+			</button>
+		</li>
+	</ul>
+</div>
+<form class="aaa" action="/news" method="post">
+    <div style="margin-left: 0.45cm">
+
+                    <?php 
+ $something = $errors->all(); 
+ if(!empty($something)): 
+?>
+
+  <div class="alert alert-danger alert-dismissible fade show">
+       <strong>Errors:</strong><br>           
+  @foreach ($errors->all(':message') as $input_error)
+    {{ $input_error }}<br>
+  @endforeach 
+  </div>
+
+<?php endif; ?>
+<?php 
+$a=session('status');
+if(!empty($a)):
+?>
+ <div class="alert alert-success alert-dismissible fade show">
+    
+       <strong>Success!</strong><br>           
+       {{session('status')}}<br>
+  </div>
+
+
+<?php endif; ?>
+</div>
+    @csrf
+    <input class="inp" type="text" name="title" placeholder="Enter your Title">
+              
+<textarea class="aaa" name="body" id="output" placeholder="Enter Body" contenteditable="true"></textarea>
+<select class="inp" name="category">
+    <option value="tech">tech</option>
+    <option value="news">news</option>
+    <option value="local">local</option>
+    </select><br><br>
+    <input type="hidden" name="author" value="{{session('fname')}}">
+   <center> <button type="submit" class="btn btn-primary">Add Post</button></center>
+</form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 </body>
 
 </html>
